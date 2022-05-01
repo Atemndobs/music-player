@@ -67,6 +67,11 @@
               {{ song.title }}
             </h2>
             <p class="artist">{{ song.artist }}</p>
+            <p class="artist">{{ song.key }}</p>
+            <p class="artist">{{ song.scale }}</p>
+            <p class="artist">danceability : {{ song.danceability.toFixed(1) * 100 + ' %' }}</p>
+            <p class="artist">happy : {{ song.happy.toFixed(1) * 100 + ' %' }}</p>
+            <p class="artist">sad : {{ current.sad.toFixed(1) * 100 + ' %'}}</p>
             <KProgress
                 v-if="song.isPlaying"
                 :color="['#df83f1', '#82279f', '#53cfe0']"
@@ -90,7 +95,7 @@
           <div class="cover-playlist">
             <img class="cover" :src="song.cover"/>
           </div>
-          <div class="details" @click="play(song)">
+          <div class="details" @click="playNext(song)">
             <h2 class="song-title">
               {{ song.title }}
             </h2>
@@ -172,6 +177,8 @@ export default {
       this.setCover();
     },
     play(song) {
+      console.log("FROM PLAY 1 ****************************")
+      console.log({song})
       //  song.src = "http://mage.tech:8899/storage/audio/Dotorado%20Pro%20-%20Say%20Daddy%20-%20Dotorado%20Pro.mp3"
       if (typeof song.src !== "undefined") {
         this.current.isPlaying = false;
@@ -181,7 +188,29 @@ export default {
       }
       this.matches = []
 
-      this.getRelatedSongs(song.related_songs)
+      song.played = true
+      this.getRelatedSongs(song)
+
+      this.player.play();
+      this.isPlaying = true;
+
+      this.setCover();
+      this.listenersWhenPlay();
+    },
+    playNext(song) {
+      console.log("FROM PLAY NEX 2 ==================================================================================")
+      console.log(song)
+      //  song.src = "http://mage.tech:8899/storage/audio/Dotorado%20Pro%20-%20Say%20Daddy%20-%20Dotorado%20Pro.mp3"
+      if (typeof song.src !== "undefined") {
+        this.current.isPlaying = false;
+        this.index = this.songs.indexOf(this.current);
+        this.current = song;
+        this.player.src = this.current.src;
+      }
+      this.songs = []
+
+      song.played = true
+      this.getNextRelatedSongs(song)
 
       this.player.play();
       this.isPlaying = true;
@@ -251,8 +280,47 @@ export default {
       return allSongs;
     },
 
-    getRelatedSongs(url){
+    getRelatedSongs(song){
 
+    //  let related_url = song.related_songs ?? 'http://mage.tech:8899/api/songs/match/'+song.title
+      let related_url = song.related_songs
+
+      console.log({related_url})
+
+     axios.get(related_url).then(res => {
+        let songs = res.data.hits
+        let related_songs = res.data.hits
+       console.log({related_songs})
+
+        songs.forEach((song) => {
+          let newSong =
+              {
+                title: song.title,
+                artist: song.title,
+                seconds: 204,
+                cover: require('/home/atem/sites/curator/vue-music-player/src/assets/images/azealia banks - jumanji.jpg'),
+                src: song.path,
+                bpm : song.bpm,
+                key : song.key,
+                scale : song.scale,
+                danceability : song.danceability,
+                related_songs: song.related_songs,
+                happy : song.happy,
+                sad : song.sad,
+              }
+
+          this.matches.push(newSong)
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+     // return matches;
+    },
+
+    getNextRelatedSongs(song){
+
+   //   let url  = 'http://mage.tech:8899/api/songs/match/'+song.title
+      let url  = song.related_songs
       console.log({url})
      axios.get(url).then(res => {
         let songs = res.data.hits
@@ -272,9 +340,10 @@ export default {
                 danceability : song.danceability,
                 happy : song.happy,
                 sad : song.sad,
+                related_songs: song.related_songs,
               }
 
-          this.matches.push(newSong)
+          this.songs.push(newSong)
         })
       }).catch((err) => {
         console.log(err)
