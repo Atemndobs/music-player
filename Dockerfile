@@ -13,5 +13,11 @@ COPY package*.json ./
 RUN yarn install
 
 COPY . .
+RUN yarn add serve
+RUN yarn build
+ENV PORT=8080
+ENV NODE_PORT=8080
 
-CMD ["yarn", "start"]
+RUN yarn add pm2
+RUN pm2 start "yarn serve --port 8080" --name vue
+#CMD ["yarn", "serve", "-s", "build", "-l", "8080"]
