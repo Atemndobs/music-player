@@ -45,17 +45,17 @@
           </h2>
           <!--                 {{ current.author }}     <p class="artist">{{ current.artist }}</p>-->
           <p class="artist">
-            {{ current.bpm.toFixed(1) ?? 0 }} | {{ current.key }}
+            {{ current ? current.bpm.toFixed(1) : 0 }} | {{ current.key }}
             {{ current.scale }}
           </p>
           <p class="artist">
             danceability :
-            {{ current.danceability.toFixed(1) * 100 + "%" ?? 0 + " %" }}
+            {{ current ? current.danceability.toFixed(1) * 100 + "%" : 0 + " %" }}
             | energy :
-            {{ current.energy.toFixed(1) * 100 + "%" ?? 0 + " %" }}
+            {{ current ? current.energy.toFixed(1) * 100 + "%" : 0 + " %" }}
           </p>
           <p class="artist">
-            happy : {{ current.happy.toFixed(1) * 100 + "%" ?? 0 + " %" }} | sad
+            happy : {{ current ? current.happy.toFixed(1) * 100 + "%" : 0 + " %" }} | sad
             : {{ current.sad.toFixed(1) * 100 ?? 0 + " %" }}
           </p>
           <p class="artist"></p>

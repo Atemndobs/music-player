@@ -18,6 +18,6 @@ RUN yarn build
 ENV PORT=8080
 ENV NODE_PORT=8080
 
-RUN yarn add pm2
-RUN pm2 start "yarn serve --port 8080" --name vue
+RUN npm install pm2 -g
+#RUN pm2 start "yarn serve --port 8080" --name vue
 #CMD ["yarn", "serve", "-s", "build", "-l", "8080"]
