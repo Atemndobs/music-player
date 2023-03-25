@@ -262,9 +262,7 @@ export default {
       message: "",
       search: "",
       searchClient: instantMeiliSearch(
-        //"https://integration-demos.meilisearch.com",
-        //"q7QHwGiX841a509c8b05ef29e55f2d94c02c00635f729ccf097a734cbdf7961530f47c47"
-        "http://192.168.178.87:7700",
+        "http://141.95.67.178:7700",
         "masterKey",
         {
           paginationTotalHits: 20, // default: 200.
@@ -387,7 +385,7 @@ export default {
     async getAllSongFromApi(offset = 0, limit = 50) {
       console.log({ songs_before: this.songs.length, offset, limit });
       let url =
-        "http://mage.tech:8899/api/search/songs?offset=" +
+        "http://141.95.67.178/8899/api/search/songs?offset=" +
         offset +
         "&limit=" +
         limit;
