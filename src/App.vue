@@ -385,7 +385,7 @@ export default {
     async getAllSongFromApi(offset = 0, limit = 50) {
       console.log({ songs_before: this.songs.length, offset, limit });
       let url =
-        "http://141.95.67.178/8899/api/search/songs?offset=" +
+        "http://laravel-app.curator.svc.cluster.local:8899/api/search/songs?offset=" +
         offset +
         "&limit=" +
         limit;
