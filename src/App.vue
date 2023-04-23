@@ -238,7 +238,6 @@ import songs from "./mocks/songs";
 import axios from "axios";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 import { AisInstantSearch, AisSearchBox } from "vue-instantsearch";
-
 export default {
   components: {
     KProgress,
@@ -384,9 +383,9 @@ export default {
     },
     async getAllSongFromApi(offset = 0, limit = 50) {
       console.log({ songs_before: this.songs.length, offset, limit });
-      let baseUrl = "http://curator-core.curator.svc.cluster.local:8899/api" ?? "http://localhost:8899/api";
+      let baseUrl = "http://core.curator.atemkeng.eu/api" ?? "http://localhost:8899/api";
       let url =
-        "http://curator-core.curator.svc.cluster.local:8899/api/search/songs?offset=" +
+        baseUrl + "/search/songs?offset=" +
         offset +
         "&limit=" +
         limit;
@@ -410,7 +409,6 @@ export default {
               (newSong.happy = song.happy),
               (newSong.sad = song.sad),
               (newSong.played = false);
-
             this.songs.push(newSong);
           });
 
