@@ -264,7 +264,7 @@ export default {
           "http://search.curator.atemkeng.eu" ?? "http://localhost:7700",
         "masterKey",
         {
-          paginationTotalHits: 20, // default: 200.
+          paginationTotalHits: 50, // default: 200.
           placeholderSearch: false, // default: true.
           primaryKey: "id" // default: undefined
           // ...
@@ -306,6 +306,7 @@ export default {
     },
     play(song) {
       console.log("FROM PLAY 1 ****************************");
+        console.log(song)
       if (typeof song.src !== "undefined") {
         this.current.isPlaying = false;
         this.index = this.songs.indexOf(this.current);
