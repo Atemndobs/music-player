@@ -10,7 +10,10 @@ module.exports = {
   devServer: {
     port: 8080, // CHANGE YOUR PORT HERE!
     allowedHosts: [
-      '*'
+        '*',
+        'atemkeng.eu',
+        'www.atemkeng.eu',
+        'atemkeng.info',
     ]
   },
 }

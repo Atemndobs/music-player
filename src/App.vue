@@ -262,7 +262,7 @@ export default {
       message: "",
       search: "",
       searchClient: instantMeiliSearch(
-        "http://141.95.67.178:7700",
+        process.env.MEILISEARCH_URL ?? "http://localhost:7700",
         "masterKey",
         {
           paginationTotalHits: 20, // default: 200.
