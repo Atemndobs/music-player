@@ -10,6 +10,7 @@ ENV PATH="/root/.yarn/bin:/root/.config/yarn/global/node_modules/.bin:${PATH}"
 WORKDIR /app
 
 COPY package*.json ./
+COPY .env ./
 RUN yarn install
 RUN npm install serve -g
 

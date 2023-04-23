@@ -262,7 +262,7 @@ export default {
       message: "",
       search: "",
       searchClient: instantMeiliSearch(
-        process.env.MEILISEARCH_URL ?? "http://localhost:7700",
+          "http://search.curator.atemkeng.eu" ?? "http://localhost:7700",
         "masterKey",
         {
           paginationTotalHits: 20, // default: 200.
