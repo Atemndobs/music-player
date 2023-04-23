@@ -1,41 +1,41 @@
 <template>
   <div id="app">
     <main>
-      <ais-instant-search :search-client="searchClient" index-name="songs">
-        <template>
-          <ais-instant-search index-name="songs" :search-client="searchClient">
-            <ais-configure />
-            <ais-refinement-list attribute="title" />
-            <ais-search-box
-              placeholder="Type Song Title or Artist"
-              :autofocus=true
-              :show-loading-indicator=true
-            />
-            <ais-hits :escape-HTML="true">
-              <div slot="item" slot-scope="{ item }">
-                <v-toolbar
-                  block
-                  dense
-                  elevation="10"
-                  x-small
-                  @click="replaceCurrent(item)"
-                  @keydown.enter="replaceCurrent(item)"
-                >
-                  <img class="cover-playlist" :src="item.image" />
-                   |
-                  <h5>{{ item.title }}</h5>
-                   |
-                  <h5>{{ item.bpm }}</h5>
-                   |
-                  <h5>{{ item.key }}</h5>
-                </v-toolbar>
-              </div>
-            </ais-hits>
-          </ais-instant-search>
-        </template>
-      </ais-instant-search>
+
 
       <section class="player">
+          <ais-instant-search :search-client="searchClient" index-name="songs">
+              <template>
+                  <ais-instant-search index-name="songs" :search-client="searchClient">
+                      <ais-configure />
+                      <ais-search-box
+                              placeholder="Type Song Title or Artist"
+                              :autofocus=true
+                              :show-loading-indicator=true
+                      />
+                      <ais-hits :escape-HTML="true">
+                          <div slot="item" slot-scope="{ item }">
+                              <v-toolbar
+                                      block
+                                      dense
+                                      elevation="10"
+                                      x-small
+                                      @click="replaceCurrent(item)"
+                                      @keydown.enter="replaceCurrent(item)"
+                              >
+                                  <img class="cover-playlist" :src="item.image" />
+                                  |
+                                  <h5>{{ item.title }}</h5>
+                                  |
+                                  <h5>{{ item.bpm }}</h5>
+                                  |
+                                  <h5>{{ item.key }}</h5>
+                              </v-toolbar>
+                          </div>
+                      </ais-hits>
+                  </ais-instant-search>
+              </template>
+          </ais-instant-search>
         <div class="cover-wrapper">
           <img v-bind:class="coverObject" :src="current.cover" />
         </div>
